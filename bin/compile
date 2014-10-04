@@ -12,7 +12,7 @@ if [ ! -s $1/.binaries ]; then
 fi
 
 cd $1
-
+mkdir ./bin
 while read url; do
   if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
     echo Getting $url | indent
