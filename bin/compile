@@ -1,0 +1,22 @@
+#!/bin/bash
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+echo "-----> Found a .binaries file"
+
+if [ ! -s $1/.binaries ]; then
+  echo ".binaries empty. Skipping." | indent
+  exit 0
+fi
+
+cd $1
+
+while read url; do
+  if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
+    echo Getting $url | indent
+    cmd=`basename $url`
+    curl -L -o "bin/$cmd" --silent $url
+  fi
+done < .binaries
