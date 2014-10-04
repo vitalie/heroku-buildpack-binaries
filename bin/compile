@@ -16,7 +16,7 @@ mkdir ./bin
 while read url; do
   if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
     echo Getting $url | indent
-    cmd=`basename $url`
+    cmd=`basename $url | cut -d? -f1`
     curl -L -o "bin/$cmd" --silent $url
   fi
 done < .binaries
